@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{project_obj.title}}</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+          <div class="container-fluid p-3">
+            <div class="row gx-0 gy-2">
+              <div class="col-sm-3" style="min-height: 150vh;">
+                <img src="images/image1.png" alt="project image" class="img-thumbnail">
+                <h3>{{project_obj.title}}</h3>
+              </div>
+              <div class="col-sm-8" style="min-height: 150vh;">
+                <div class="description">
+                  <h5>Decription</h5>
+                  <p>{{project_obj.details}}</p>
+                </div>
+
+                <div class="description">
+                  <h5>create by</h5>
+                  <p>{{project_obj.createdby.email}}</p>
+                </div>
+
+                <div class="description">
+                  <h5>category</h5>
+                  <p>{{project_obj.cat.name}}</p>
+                </div>
+
+                   <div class="description">
+                  <h5>total target</h5>
+                  <p>{{project_obj.target}}</p>
+                </div>
+
+                  <div class="description">
+                  <h5>start day</h5>
+                  <p>{{project_obj.startdate}}</p>
+                </div>
+
+                  <div class="description">
+                  <h5>end date</h5>
+                  <p>{{project_obj.enddate}}</p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+    </body>
+</html>

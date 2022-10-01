@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Project</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body>
+    <div class="form-group">
+        <form action="" method="post" enctype="multipart/form-data">
+            {%csrf_token%}
+            <div class="container w-50">
+                <div>
+                    <h2>Basic Info</h2>
+    
+                    <label class="h5" for="title">Title</label>
+                    <input type="text" name="title" class="form-control mb-3">
+                    
+                    <label class="h5" for="details">Details</label>
+                    <input type="text" name="details" class="form-control mb-3">
+                
+                    <label class="h5" for="target">Total Target</label>
+                    <input type="number" name="target" class="form-control mb-3">
+                    
+                     <label class="h5" for="poster">Poster</label>
+                    <input type="file" name="poster" class="form-control mb-3">
+    
+                    <label class="h5" for="startdate">Start Date</label>
+                    <input type="date" name="startdate" class="form-control mb-3">
+    
+                    <label class="h5" for="">End Date</label>
+                    <input type="date" name="enddate" class="form-control mb-3">
+    
+                    <label class="h5" for="cat">Category</label>
+                    <select name="cat" id="" class="form-control mb-3">
+                        {% for i in proj_cat %}
+                            <option>{{i.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="mt-5">
+                    <h2>Images</h2>
+                    <div id="imageholder">
+                        <label class="h5 mb-3" for="image1">First Image</label>
+                        <input type="file" name="image1" class="form-control mb-3">
+                        <button class="btn btn-primary mb-3" onclick="event.preventDefault(); addimage()">add image</button>
+                    </div>
+                </div>
+    
+                <div class="mt-5 mb-3">
+                    <h2>Tags</h2>
+                    <div id="tagholder">
+                        <label class="h5" for="tag1">First Tag</label>
+                        <input placeholder="Dont Forget The # before Tag Name" type="test" name="tag1" class="form-control mb-3">
+                        <button class="btn btn-primary" onclick="event.preventDefault(); addtag()">add tag</button>
+                    </div>
+                </div>
+    
+                <input type="submit" value="create project" class="form-control mb-3 btn btn-primary">
+            </div>
+
+        </form>
+    </div>
+    <script>
+        var c=2;
+        var tagplace=document.getElementById("tagholder")
+        function addtag()
+        {
+            let spel1 =document.createElement('br');
+            let spel2 =document.createElement('br');
+            let taglabel = document.createElement('label');
+            taglabel.innerHTML="Tag "+c;
+            taglabel.classList.add("mb-3")
+            let spel3 =document.createElement('br');
+            let taginput = document.createElement('input');
+            taginput.type="text";
+            taginput.name="Tag "+c;
+            taginput.classList.add("form-control")
+            tagplace.append(spel1);
+            tagplace.append(spel2);
+            tagplace.append(taglabel);
+            tagplace.append(spel3)
+            tagplace.append(taginput);
+            c++;
+        }
+
+        var i=2;
+        var imageplace=document.getElementById("imageholder")
+        function addimage()
+        {
+            let spel1 =document.createElement('br');
+            let spel2 =document.createElement('br');
+            let imagelabel = document.createElement('label');
+            imagelabel.innerHTML="Image "+i;
+            imagelabel.classList.add("mb-3")
+            let spel3 =document.createElement('br');
+            let imageinput = document.createElement('input');
+            imageinput.type="file";
+            imageinput.name="Image "+i;
+            imageinput.classList.add("form-control")
+            imageplace.append(spel1);
+            imageplace.append(spel2);
+            imageplace.append(imagelabel);
+            imageplace.append(spel3)
+            imageplace.append(imageinput);
+            i++;
+        }
+    </script>
+    
+</body>
+</html>

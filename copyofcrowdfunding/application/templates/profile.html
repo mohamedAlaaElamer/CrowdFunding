@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+</head>
+<body>
+    <h1>Profile Page</h1>
+    <table border="1" width="100%">
+        <tr>
+                <td>ID</td>
+                <td>First Name</td>
+                <td>Last Name</td>
+                <td>Email</td>
+                <td>Password</td>
+                <td>Phone Number</td>
+                <td>Profile Picture</td>
+        </tr>
+        <tr>
+                <td>{{user.id}}</td>
+                <td>{{user.First_Name}}</td>
+                <td>{{user.Last_Name}}</td>
+                <td>{{user.Email}}</td>
+                <td>{{user.Password}}</td>
+                <td>{{user.Phone_Number}}</td>
+                <td>{{user.Profile_Picture}}</td>
+                <td>
+                    <a href="{%url 'updateuser' user.id  %}">Update</a>
+                    <a href="{%url 'deleteuser' user.id  %}">Delete</a>
+             </td>           
+        </tr>
+    
+    </table>
+    <a href="{% url 'logout'%}">Logout</a>
+</body>
+</html>

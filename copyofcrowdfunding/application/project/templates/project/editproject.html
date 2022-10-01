@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body>
+    <div class="row">
+        <div class="form-group">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="container">
+                    <h1>Poster</h1>
+                <input type="hidden"  name="formname" value="posterform">
+                <div class="d-flex justify-content-center">
+                    <img src="{{proj.poster.url}}" alt="" width="250px">
+                </div>
+                <br> <br>
+                <div class="d-flex justify-content-center">
+                    <input type="file" name="image" class="form-control w-25 me-2" style="display: none;">
+                    <input type="submit" class="btn btn-primary me-2" value="Edit" onclick="event.preventDefault(); this.previousElementSibling.style.display='inline'; this.nextElementSibling.style.display='inline'">
+                    <input type="submit" class="btn btn-primary me-2" value="Save" style="display: none;">
+                </div>
+                </div>
+            </form>
+            
+            
+        </div>
+        <div class="col-sm-4">
+            
+             <form method="post">
+                        {% csrf_token %}
+                        <div class="container">
+                            <input type="hidden"  name="formname" value="basicinfo">
+                        <h2>Basic Information</h2>
+                        <label for="title">Title :</label>
+                        <input type="text" class="basicinfo form-control" name="title" readonly value="{{proj.title}}">
+                        <br> <br>
+            
+                        <label for="details">Details :</label>
+                        <input type="text" class="basicinfo form-control" name="details" readonly value="{{proj.details}}">
+                        <br> <br>
+            
+                        <label for="target">Total Target :</label>
+                        <input type="number" class="basicinfo form-control" name="target" readonly value="{{proj.target}}">
+                        <br> <br>
+            
+                        <label for="startdate">Start Date :</label>
+                        <input type="date" class="basicinfo form-control" name="startdate" readonly value="{{proj.startdate|date:'Y-m-d'}}">
+                        <br> <br>
+            
+                        <label for="enddate">End Date :</label>
+                        <input type="date" class="basicinfo form-control" name="enddate" readonly value="{{proj.enddate|date:'Y-m-d'}}">
+                        <br> <br>
+            
+                        <label for="cat">Category</label>
+                        <select name="cat" id="" class="basicinfo form-control" disabled>
+                                {% for i in proj_cat %}
+                                    {% if i.name == proj.cat.name%}
+                                    <option selected>{{i.name}}</option>
+                                    {% endif %}
+                                    <option>{{i.name}}</option>
+                                {% endfor %}
+                        </select>
+            
+            
+                        <br> <br>
+                        <input type="submit" value="Edit" class="btn btn-primary" onclick="event.preventDefault(); this.nextElementSibling.style.display='inline'; editbasicinfo();">
+                        <input type="submit" value="Save" class="btn btn-primary"  style="display: none;">
+                        </div>
+                    </form>
+            
+        
+        </div>
+        <div class="col-sm-4">
+            <div>
+                <h2>Images</h2>
+                {% for i in pic %}
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="container">
+                        <input type="hidden" name="formname" value="picremove">
+                    <input type="hidden" name="id" value="{{i.pic_id}}">
+                    <img src="{{i.picture.url}}" alt="" width="400px">
+                    <br> <br>
+                    <input type="submit" class="btn btn-primary" value="delete pic">
+                    <br> <br>
+                </form>
+                {% endfor %}
+        
+        
+                 <h2>Add Images</h2>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="formname" value="savepic">
+                    <div id="imageholder">
+                        <label class="mb-3" for="">Image 1</label>
+                        <input type="file" class="form-control mb-3" name="image1">
+                        <button class="btn btn-primary" onclick="event.preventDefault(); addimage()">Add Image</button>
+                    </div>
+                    <br> <br>
+                    <input type="submit" class="btn btn-primary" value="Save">
+                    </div>
+                </form>
+            </div>
+        
+            
+        
+        </div>
+        <div class="col-sm-4">
+            <h2>Tags</h2>
+            {% for i in tag %}
+            <form method="post">
+                {% csrf_token %}
+                <div class="container">
+                    <input type="hidden" name="formname" value="tagremove">
+                <input type="hidden" name="id" value="{{i.tag_id}}">
+                <label class="h5" style="margin-right:50px">{{i.tag}}</label>
+                <input type="submit" class="btn btn-primary" value="Delete Tag">
+                <br> <br>
+                </div>
+            </form>
+            {% endfor %}
+    
+    
+            <h2>Add Tags</h2>
+            <form method="post" >
+                {% csrf_token %}
+                <input type="hidden" name="formname" value="savetag">
+                <div id="tagholder">
+                    <label class="mb-3" for="tag1">Tag 1</label>
+                    <input class="form-control mb-3" type="test" name="tag1">
+                    <button class="btn btn-primary" onclick="event.preventDefault(); addtag()">Add Tag</button>
+                </div>
+                <br> <br>
+                <input type="submit" class="btn btn-primary" value="Save">
+            </form>
+    
+    
+            {% if totaldon <= checkvalue  %}
+            <div class="mt-5">
+                <a href="/delete/{{proj.id}}" class="btn btn-primary">Delete Project</a>
+            </div>
+            {% endif %}
+    
+        </div>
+
+    </div>
+
+
+        <script>
+            function editbasicinfo(){
+                allinput = document.querySelectorAll(".basicinfo");
+                console.log(allinput);
+                for(let i of allinput)
+                {
+                    i.removeAttribute('readonly');
+                    i.removeAttribute('disabled');
+                }
+
+            }
+
+             var c=2;
+            var tagplace=document.getElementById("tagholder")
+            function addtag()
+            {
+                let spel1 =document.createElement('br');
+                let spel2 =document.createElement('br');
+                let taglabel = document.createElement('label');
+                taglabel.innerHTML="Tag "+c;
+                let taginput = document.createElement('input');
+                taginput.type="text";
+                taginput.name="Tag "+c;
+                taginput.classList.add("form-control" , "mt-3")
+                tagplace.append(spel1);
+                tagplace.append(spel2);
+                tagplace.append(taglabel);
+                tagplace.append(taginput);
+                c++;
+            }
+
+            var i=2;
+            var imageplace=document.getElementById("imageholder")
+            function addimage()
+            {
+                let spel1 =document.createElement('br');
+                let spel2 =document.createElement('br');
+                let imagelabel = document.createElement('label');
+                imagelabel.innerHTML="Image "+i;
+                let imageinput = document.createElement('input');
+                imageinput.type="file";
+                imageinput.name="Image "+i;
+                imageinput.classList.add("form-control" , "mt-3")
+                imageplace.append(spel1);
+                imageplace.append(spel2);
+                imageplace.append(imagelabel);
+                imageplace.append(imageinput);
+                i++;
+            }
+
+        </script>
+</body>
+</html>

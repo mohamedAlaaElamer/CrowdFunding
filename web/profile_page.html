@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>create project</title>
+    </head>
+    <body>
+        <form action="" method="get">
+            <div>
+                <h2>basic info</h2>
+
+                <label for="">title</label>
+                <input type="text" name="title">
+                <br> <br>
+
+                <label for="">details</label>
+                <input type="text" name="details">
+                <br> <br>
+
+                <label for="">total target</label>
+                <input type="number" name="target">
+                <br> <br>
+
+                <label for="">start date</label>
+                <input type="date" name="startdate">
+                <br> <br>
+
+                <label for="">end date</label>
+                <input type="date" name="enddate">
+                <br> <br>
+
+                <label for="">category</label>
+                <select name="cat" id="">
+                    <option>cat1</option>
+                    <option>cat2</option>
+                </select>
+                <br> <br>
+            </div>
+
+            <div>
+                <h2>images</h2>
+                <div id="imageholder">
+                    <label for="">image1</label>
+                    <input type="file" name="image1">
+                    <button onclick="event.preventDefault(); addimage()">add image</button>
+                </div>
+            </div>
+
+            <div>
+                <h2>tags</h2>
+                <div id="tagholder">
+                    <label for="">tag1</label>
+                    <input type="test" name="tag1">
+                    <button onclick="event.preventDefault(); addtag()">add tag</button>
+                </div>
+            </div>
+            
+            <input type="submit" value="create project">
+        </form>
+        <script>
+            var c=2;
+            var tagplace=document.getElementById("tagholder")
+            function addtag()
+            {
+                let spel1 =document.createElement('br');
+                let spel2 =document.createElement('br');
+                let taglabel = document.createElement('label');
+                taglabel.innerHTML="tag"+c;
+                let taginput = document.createElement('input');
+                taginput.type="text";
+                taginput.name="tag"+c;
+                tagplace.append(spel1);
+                tagplace.append(spel2);
+                tagplace.append(taglabel);
+                tagplace.append(taginput);
+                c++;
+            }
+
+            var i=2;
+            var imageplace=document.getElementById("imageholder")
+            function addimage()
+            {
+                let spel1 =document.createElement('br');
+                let spel2 =document.createElement('br');
+                let imagelabel = document.createElement('label');
+                imagelabel.innerHTML="image"+i;
+                let imageinput = document.createElement('input');
+                imageinput.type="file";
+                imageinput.name="image"+i;
+                imageplace.append(spel1);
+                imageplace.append(spel2);
+                imageplace.append(imagelabel);
+                imageplace.append(imageinput);
+                i++;
+            }
+        </script>
+    </body>
+</html>

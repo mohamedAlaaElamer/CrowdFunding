@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <div onclick="gottolink(this)">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, inventore in veniam ipsa modi fugiat commodi repellendus voluptatibus necessitatibus, provident perferendis consequatur! Dolorum tempore laborum, et omnis aperiam sunt dolorem!</p>
+            <a href="home_page.html"></a>
+        </div>
+        <script>
+            function gottolink(el)
+            {
+                console.log(el.children[1])
+                el.children[1].click();
+            }
+        </script>
+    </body>
+</html>
